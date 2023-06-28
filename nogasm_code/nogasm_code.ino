@@ -130,6 +130,7 @@ int cooldownFlag = 1;// Signal that a cycle is complete. 1 = Ready to adjust coo
 int maxCooldown = 180;// Max number of seconds of the cooldown. It will never raise above this amount.
 int minimumcooldown = 1; // Start it with minimum cooldown, then it will increase as time goes on.
 
+float LimitSpeed = 0; // Used in mode 6 to limit the speed of the motor based on the pressure.
 
 
 
@@ -323,8 +324,7 @@ void run_auto()
 				//I recently flashed an edited firmware to make it slow the vibrator the more the pressure on the plug rises as you get excited. I have found out in this way the device is more reliable in making you edge without crossing the point of no return.
 
 				case 6:
-					LimitSpeed = (float)maxMotorSpeed - (1.15 * (pressure - averagePressure) / pressureLimit * (float
-					maxMotorSpeed);
+					LimitSpeed = (float)maxMotorSpeed - (1.15 * (pressure - averagePressure) / pressureLimit * (float) maxMotorSpeed);
   					motorSpeed = -(.5 * (float)rampUp * ((float)FREQUENCY * motorIncrement) + 10); //Stay off for a while (half the ramp up time) 
 					if (LimitSpeed >= 0) 
 					{
